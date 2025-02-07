@@ -136,15 +136,15 @@ jobs:
 
       - name: Generate Changelog
         env:
-          API_URL: ${{ secrets.API_URL }}
-          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: https://api.siliconflow.cn  
+          API_KEY: sk-qtgbhwambjhhrahtrbwrjhwzcjmymgiknwigavezyjjhrjcu    
         run: |
           TEXT=$(git log $(jq -r .version package.json)..HEAD --pretty=format:%s | grep -v '[0-9]\+\.[0-9]\+\.[0-9]\+$' | sed ':a;N;$!ba;s/\n/\\n/g')
-          QUESTION="Translate into Chinese:\n"""\n$TEXT\n""""
+          QUESTION="Translate into Chinese:\n"""\n$TEXT\n""""  
           PAYLOAD=$(cat <<EOF
           {
             "stream": false,
-            "model": "gpt-4o",
+            "model": "THUDM/glm-4-9b-chat",  
             "messages": [
               {
                 "role": "system",
